@@ -8,7 +8,6 @@ local.properties
 # Log/OS Files
 *.log
 
-app/src/main/java/apps/kr/mentalgrowth/network/NetworkClient.kt
 
 # Android Studio generated files and folders
 captures/
