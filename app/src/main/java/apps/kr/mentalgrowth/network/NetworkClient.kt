@@ -15,6 +15,7 @@ object NetworkClient {
     public const val BASE_URL_MEMBER = "https://xxxx.mycafe24.com/upload/member/"
 
 
+
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY  // BODY 레벨은 요청/응답 전체를 로그로 출력
     }
