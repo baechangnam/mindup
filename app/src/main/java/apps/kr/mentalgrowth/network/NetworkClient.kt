@@ -10,10 +10,9 @@ import java.util.concurrent.TimeUnit
 
 object NetworkClient {
 
-    private const val BASE_URL = "https://mindup25.mycafe24.com/"
-    public const val BASE_URL_UPLOAD = "https://mindup25.mycafe24.com/upload/board/"
-    public const val BASE_URL_MEMBER = "https://mindup25.mycafe24.com/upload/member/"
-    public const val BASE_URL_PDF = "https://mindup25.mycafe24.com/upload/pdf/"
+    private const val BASE_URL = "https://xxxx.mycafe24.com/"
+    public const val BASE_URL_UPLOAD = "https://xxxx.mycafe24.com/upload/board/"
+    public const val BASE_URL_MEMBER = "https://xxxx.mycafe24.com/upload/member/"
 
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
