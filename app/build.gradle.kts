@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,6 +7,14 @@ plugins {
 }
 
 
+
+// local.properties 로부터 프로퍼티 읽기
+val localProperties = Properties().apply {
+    val localPropsFile = rootProject.file("local.properties")
+    if (localPropsFile.exists()) {
+        load(localPropsFile.inputStream())
+    }
+}
 
 android {
     namespace = "apps.kr.mentalgrowth"
@@ -18,6 +28,22 @@ android {
         versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            type = "String",
+            name = "BASE_URL",
+            value = "\"${localProperties.getProperty("MINDUP_BASE_URL") ?: ""}\""
+        )
+        buildConfigField(
+            type = "String",
+            name = "BASE_URL_UPLOAD",
+            value = "\"${localProperties.getProperty("MINDUP_BASE_URL_UPLOAD") ?: ""}\""
+        )
+        buildConfigField(
+            type = "String",
+            name = "BASE_URL_MEMBER",
+            value = "\"${localProperties.getProperty("MINDUP_BASE_URL_MEMBER") ?: ""}\""
+        )
     }
 
     buildTypes {

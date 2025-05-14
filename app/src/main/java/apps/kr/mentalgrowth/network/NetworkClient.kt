@@ -1,5 +1,7 @@
 package apps.kr.mentalgrowth.network
 
+
+import apps.kr.mentalgrowth.BuildConfig
 import apps.kr.mentalgrowth.model.ApiRequestModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,9 +12,9 @@ import java.util.concurrent.TimeUnit
 
 object NetworkClient {
 
-    private const val BASE_URL = "https://mindup25.mycafe24.com/"
-    public const val BASE_URL_UPLOAD = "https://mindup25.mycafe24.com/upload/board/"
-    public const val BASE_URL_MEMBER = "https://mindup25.mycafe24.com/upload/member/"
+    val BASE_URL        = BuildConfig.BASE_URL
+    val BASE_URL_UPLOAD = BuildConfig.BASE_URL_UPLOAD
+    val BASE_URL_MEMBER = BuildConfig.BASE_URL_MEMBER
 
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
