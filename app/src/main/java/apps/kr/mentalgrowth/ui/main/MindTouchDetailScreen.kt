@@ -299,7 +299,7 @@ fun BoardGrid(
                             .weight(1f)
                             .aspectRatio(1f)       // 정사각형
                             .clip(RoundedCornerShape(8.dp))
-                            .background(Color(0xFFF0F0F0))
+                            .background(Color(0xFFfee3ea))
                             .clickable { onItemClick(board) }
                             .padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,

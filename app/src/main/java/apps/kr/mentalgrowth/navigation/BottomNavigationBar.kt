@@ -64,6 +64,7 @@ fun BottomNavigationBar(navController: NavController) {
                 val backgroundColor = if (isSelected) Color(0xFFFFE4EC) else Color.White
                 val borderColor     = if (isSelected) Color(0xFFFF80AB) else Color(0xFFFFC0CB)
                 val textColor       = if (isSelected) Color(0xFFFF4081) else Color.Black
+                val textColor1       = if (isSelected) Color(0xFFFF4081) else Color(0xFFFF4081)
 
                 Column(
                     modifier = Modifier
@@ -89,7 +90,7 @@ fun BottomNavigationBar(navController: NavController) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text("♥", fontSize = 25.sp, fontWeight = FontWeight.Bold, color = textColor)
+                            Text("♥", fontSize = 25.sp, fontWeight = FontWeight.Bold, color = textColor1)
                             Text("마음성장", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textColor)
                         }
                     }

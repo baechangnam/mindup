@@ -109,7 +109,7 @@ fun MindTouchScreen( navController: NavController? = null,
     )
 
     LaunchedEffect(mem_id) {
-        viewModel.getBoardTouch("3", class_group_id,"",mem_id,"today")
+        viewModel.getBoardTouch("3", class_group_id,"",mem_id,"")
         viewModel.getMemInfo(mem_id,class_group_id)
 
     }
@@ -185,7 +185,7 @@ fun MindTouchScreen( navController: NavController? = null,
                             // 선택된 GroupInfo 처리
                             Log.d("SelectedGroup", it.toString())
                             var selId = it.mem_id
-                            viewModel.getBoardTouch("3", class_group_id,"",selId,"today")
+                            viewModel.getBoardTouch("3", class_group_id,"",selId,"")
 
                         }
                     )

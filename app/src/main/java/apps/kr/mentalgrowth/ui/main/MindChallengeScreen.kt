@@ -100,7 +100,7 @@ fun MindChallengeScreen( navController: NavController? = null,
     )
 
     LaunchedEffect(class_group_id) {
-        viewModel.getBoardTouch("4", class_group_id,"",mem_id,"today")
+        viewModel.getBoardTouch("4", class_group_id,"",mem_id,"")
 
     }
 
@@ -257,7 +257,7 @@ fun MindChallengeScreen( navController: NavController? = null,
                             navController?.navigate("chalNote")
                         }
                     ) {
-                        Text("성장노트")
+                        Text("성장노트", style = MaterialTheme.typography.body2)
                     }
                 }
 

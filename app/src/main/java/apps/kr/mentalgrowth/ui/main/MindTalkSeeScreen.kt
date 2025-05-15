@@ -342,7 +342,7 @@ fun MindTalkSeeScreen( navController: NavController? = null,
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            "친구의 마음을 차분하게 살펴보며, 서로의 마음을 나눠 보아요",
+                            "친구의 마음을 차분하게 살펴보며, 서로의 마음을 나눠 보세요.",
                             fontSize = 13.sp,
                             color = Color(0xFF1565C0) // 짙은 파랑
                         )

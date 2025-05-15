@@ -48,6 +48,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -142,6 +144,11 @@ fun BoardChalRegisterScreen(navController: NavController, code : String,  idx: S
             viewModel.fetchBoardDetailTouch(idx, memId)
         }
     }
+    val MyFontFamily = FontFamily(
+        Font(R.font.mid, weight = FontWeight.Normal),
+        Font(R.font.bold, weight = FontWeight.Bold)
+    )
+
     val board by viewModel.board.collectAsState()
     LaunchedEffect(board) {
         board?.let {
@@ -204,6 +211,7 @@ fun BoardChalRegisterScreen(navController: NavController, code : String,  idx: S
             }
 
         },
+
         content = { innerPadding ->
             Column(
                 modifier = Modifier
@@ -232,16 +240,8 @@ fun BoardChalRegisterScreen(navController: NavController, code : String,  idx: S
                         .height(200.dp),
                     textStyle = TextStyle(
                         fontSize = fontSizeSp,
-                        fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
-                        fontStyle = if (isItalic) FontStyle.Italic else FontStyle.Normal,
-                        textDecoration = when {
-                            isUnderline && isStrikethrough -> TextDecoration.combine(
-                                listOf(TextDecoration.Underline, TextDecoration.LineThrough)
-                            )
-                            isUnderline -> TextDecoration.Underline
-                            isStrikethrough -> TextDecoration.LineThrough
-                            else -> TextDecoration.None
-                        },
+                        fontFamily = MyFontFamily,
+                        fontWeight = FontWeight.Normal,
                         color = selectedColor
                     )
                 )

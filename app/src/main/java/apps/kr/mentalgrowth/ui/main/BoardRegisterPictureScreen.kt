@@ -49,6 +49,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -93,6 +95,11 @@ fun BoardRegisterPictureScreen(navController: NavController, code : String,  idx
 
     // 사진 첨부 (예시 상태; 실제로는 이미지 Uri나 Bitmap 등을 사용)
     var attachedPhoto by remember { mutableStateOf<Any?>(null) }
+    val MyFontFamily = FontFamily(
+        Font(R.font.mid, weight = FontWeight.Normal),
+        Font(R.font.bold, weight = FontWeight.Bold)
+    )
+
 
     // 선택된 글자 크기를 sp로 변환
     val fontSizeSp = when (selectedFontSize) {

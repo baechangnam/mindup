@@ -49,6 +49,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -81,6 +83,11 @@ import java.io.File
 fun BoardRegisterConsultScreen(navController: NavController, code : String,  idx: String? = null, viewModel: MainViewModel = viewModel()) {
     // 제목, 내용 입력 상태
     val context = LocalContext.current
+    val MyFontFamily = FontFamily(
+        Font(R.font.mid, weight = FontWeight.Normal),
+        Font(R.font.bold, weight = FontWeight.Bold)
+    )
+
     // 글자 속성 상태
     var selectedFontSize by remember { mutableStateOf("보통") } // 옵션: "큰", "보통", "작은"
     var isBold by remember { mutableStateOf(false) }
@@ -234,16 +241,8 @@ fun BoardRegisterConsultScreen(navController: NavController, code : String,  idx
                         .height(200.dp),
                     textStyle = TextStyle(
                         fontSize = fontSizeSp,
-                        fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
-                        fontStyle = if (isItalic) FontStyle.Italic else FontStyle.Normal,
-                        textDecoration = when {
-                            isUnderline && isStrikethrough -> TextDecoration.combine(
-                                listOf(TextDecoration.Underline, TextDecoration.LineThrough)
-                            )
-                            isUnderline -> TextDecoration.Underline
-                            isStrikethrough -> TextDecoration.LineThrough
-                            else -> TextDecoration.None
-                        },
+                        fontFamily = MyFontFamily,
+                        fontWeight = FontWeight.Normal,
                         color = selectedColor
                     )
                 )

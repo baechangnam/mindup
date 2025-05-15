@@ -24,8 +24,8 @@ android {
         applicationId = "apps.kr.mentalgrowth"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 4
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -53,6 +53,17 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+//            isMinifyEnabled   = true
+//            // ② 사용하지 않는 리소스도 제거
+//            isShrinkResources = true
+//
+//            proguardFiles(
+//                // Android SDK 제공 기본 룰
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                // 나만의 룰
+//                "proguard-rules.pro"
+//            )
         }
     }
     buildFeatures {

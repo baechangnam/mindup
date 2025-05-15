@@ -49,6 +49,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -87,6 +89,11 @@ fun BoardRegisterScreen(navController: NavController, code : String,  idx: Strin
     var isItalic by remember { mutableStateOf(false) }
     var isUnderline by remember { mutableStateOf(false) }
     var isStrikethrough by remember { mutableStateOf(false) }
+    val MyFontFamily = FontFamily(
+        Font(R.font.mid, weight = FontWeight.Normal),
+        Font(R.font.bold, weight = FontWeight.Bold)
+    )
+
     // 12가지 주요 색상 예시
 
     var selectedColor by remember { mutableStateOf(Color.Black) }
@@ -235,16 +242,8 @@ fun BoardRegisterScreen(navController: NavController, code : String,  idx: Strin
                         .height(200.dp),
                     textStyle = TextStyle(
                         fontSize = fontSizeSp,
-                        fontWeight = if (isBold) FontWeight.Bold else FontWeight.Normal,
-                        fontStyle = if (isItalic) FontStyle.Italic else FontStyle.Normal,
-                        textDecoration = when {
-                            isUnderline && isStrikethrough -> TextDecoration.combine(
-                                listOf(TextDecoration.Underline, TextDecoration.LineThrough)
-                            )
-                            isUnderline -> TextDecoration.Underline
-                            isStrikethrough -> TextDecoration.LineThrough
-                            else -> TextDecoration.None
-                        },
+                        fontFamily = MyFontFamily,
+                        fontWeight = FontWeight.Normal,
                         color = selectedColor
                     )
                 )

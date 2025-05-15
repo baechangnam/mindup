@@ -403,18 +403,19 @@ fun BoardDetailContent(
                                 val url =   NetworkClient.BASE_URL_UPLOAD+b.filename
                                 imageUrl = url
 
-                                Image(
-                                    painter = rememberAsyncImagePainter(url),
-                                    contentDescription = "첨부 이미지",
+                                AsyncImage(
+                                    model = url,
+                                    contentDescription = "게시글 이미지",
+                                    contentScale = ContentScale.FillWidth,
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(200.dp)
-                                        .clickable {
+                                        .fillMaxSize()
+                                        .wrapContentHeight().clickable {
                                             imageUrl = url
                                             showImageFullScreen = true
                                         },
-                                    contentScale = ContentScale.Crop
                                 )
+
+
                             }
                         }
 

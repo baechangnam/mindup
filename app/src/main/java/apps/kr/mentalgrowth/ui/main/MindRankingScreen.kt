@@ -194,11 +194,16 @@ fun MindRankingScreen(
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     top3.forEachIndexed { index, item ->
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            modifier = Modifier
+                                .weight(1f)              // ★ 균등 분배
+                                .padding(vertical = 8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             MedalIcon(index + 1)
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "${item.mem_phone} (${shortenSchoolName(item.school as String)})",
+                                text = "${item.mem_phone}(${shortenSchoolName(item.school as String)})",
                                 style = MaterialTheme.typography.body2,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.Black
@@ -235,7 +240,7 @@ fun MindRankingScreen(
                                 imageVector = Icons.Default.Person,
                                 contentDescription = "기본 아이콘",
                                 tint = Color.Gray,
-                                modifier = Modifier.size(32.dp)
+                                modifier = Modifier.size(24.dp)
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
@@ -245,9 +250,12 @@ fun MindRankingScreen(
                             style = MaterialTheme.typography.body2,
                             modifier = Modifier.weight(1f)
                         )
-                        Text("${item.tier}", fontSize = 12.sp,style = MaterialTheme.typography.subtitle1,)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("${item.level}/${item.comment_count}", fontSize = 12.sp,style = MaterialTheme.typography.subtitle1,)
+                        Spacer(modifier = Modifier.width(3.dp))
+                        TierImage(_myTeir = item.tier)
+
+                        Spacer(modifier = Modifier.weight(1f))
+                        //Text("${item.tier}", fontSize = 12.sp,style = MaterialTheme.typography.subtitle1,)
+                        Text("${item.level} / 댓글 수 ${item.comment_count}", fontSize = 12.sp,style = MaterialTheme.typography.subtitle1,)
                     }
                 }
 
@@ -288,6 +296,6 @@ fun MedalIcon(rank: Int) {
             .background(medalColor, shape = CircleShape),
         contentAlignment = Alignment.Center
     ) {
-        Text("$rank", fontWeight = FontWeight.Bold, color = Color.White)
+        Text("${rank}위", fontWeight = FontWeight.Bold, color = Color.White)
     }
 }

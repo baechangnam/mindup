@@ -81,7 +81,7 @@ interface ApiService {
 
     @GET("api/list_touch_total.php")
     suspend fun getBoardListTouchTotal(@Query("pid") id: String,@Query("group_id") keyword: String,@Query("code") code:
-    String,@Query("reg_id") reg_id: String,@Query("tag") tag: String): Response<ApiResponseModel.CountResponseModel>
+    String,@Query("reg_id") reg_id: String,@Query("tag") tag: String,@Query("mem_level") mem_level: String): Response<ApiResponseModel.CountResponseModel>
 
 
     @GET("api/my_info.php")

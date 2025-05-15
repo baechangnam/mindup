@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -59,6 +61,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -103,6 +106,9 @@ fun HomeScreen( navController: NavController? = null,
         .getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
         .getString("mem_id", "")!!
 
+    val mem_level = LocalContext.current
+        .getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        .getString("mem_level", "")!!
 
     LaunchedEffect(class_group_id) {
         viewModel.getBoard("1", class_group_id,"")
@@ -110,7 +116,7 @@ fun HomeScreen( navController: NavController? = null,
         viewModel.getBoard("2", class_group_id,"1") //마음간판 1 , 마음영상0
         viewModel.getMyInfo(mem_id)
 
-        viewModel.getBoardListTouchTotal("3",class_group_id,"",mem_id,"today")
+        viewModel.getBoardListTouchTotal("3",class_group_id,"",mem_id,"",mem_level)
     }
 
     Scaffold(
@@ -516,24 +522,22 @@ fun MemberHeader(
         color = Color(0xFFF8BBD0),
         modifier = Modifier.fillMaxWidth()
     ) {
-        var showLogoutDialog by remember { mutableStateOf(false) }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // 1. 왼쪽: 프로필
+            // 1. 왼쪽: 프로필 (weight = 1)
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.clickable {
-                    navController?.navigate("profile")
-                }
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { navController?.navigate("profile") },
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val imageUrl = member.mem_img?.takeIf { it.isNotBlank() }?.let {
-                    NetworkClient.BASE_URL_MEMBER + it
-                }
+                val imageUrl = member.mem_img
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let { NetworkClient.BASE_URL_MEMBER + it }
 
                 AsyncImage(
                     model = imageUrl ?: R.drawable.thumbnail_no_img1,
@@ -548,52 +552,56 @@ fun MemberHeader(
 
                 val shortSchool = member.school.substringBefore("초") + "초"
                 Text(
-                    text = "${member.mem_phone} (${shortSchool})",
+                    text = "${member.mem_phone} ($shortSchool)",
                     color = Color.White,
-                    style = MaterialTheme.typography.caption,
+                    fontSize = 9.sp,
                     fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
+                        .widthIn(max = 80.dp)
                         .background(Color(0xAA000000), shape = RoundedCornerShape(4.dp))
                         .padding(horizontal = 4.dp, vertical = 1.dp)
                 )
             }
 
-            // 2. 가운데: 정확히 가운데 정렬된 텍스트
-            Box(
-                modifier = Modifier.weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "두근두근 마음성장",
-                    color = Color.Black,
-                    style = MaterialTheme.typography.h5,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            // 2. 가운데: wrapContentWidth + textAlign.Center
+            Text(
+                text = "두근두근 마음성장",
+                fontSize = 23.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .padding(horizontal = 8.dp)
+            )
 
-            Spacer(modifier = Modifier.width(13.dp))
-
-            // 3. 오른쪽: 하트 2개
+            // 3. 오른쪽: 하트 2개 (weight = 1, End 정렬)
             Row(
+                modifier = Modifier
+                    .weight(1f),
+                horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = null,
                     tint = Color(0xFFE57373),
-                    modifier = Modifier.size(27.dp)  .rotate(30f)
+                    modifier = Modifier
+                        .size(27.dp)
+                        .rotate(30f)
                 )
-
                 Spacer(modifier = Modifier.width(4.dp))
-
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = null,
                     tint = Color(0xFFE57373),
-                    modifier = Modifier.size(14.dp)  .rotate(30f)
+                    modifier = Modifier
+                        .size(14.dp)
+                        .rotate(30f)
                 )
             }
         }
     }
 }
-

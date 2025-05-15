@@ -476,7 +476,7 @@ fun BoardDetailChal(
 
 
                         val context = LocalContext.current
-                        val filename = b.filename?.lowercase()?.trim()
+                        val filename = b.filename
                         val imageExtensions = listOf("jpg", "jpeg", "png", "webp", "gif")
                         val videoExtensions = listOf("mp4", "mov", "webm", "avi", "mkv")
 
@@ -499,19 +499,19 @@ fun BoardDetailChal(
 
                             when {
                                 isImage -> {
-                                    Image(
-                                        painter = rememberAsyncImagePainter(fileUrl),
-                                        contentDescription = "첨부 이미지",
+                                    AsyncImage(
+                                        model = fileUrl,
+                                        contentDescription = "게시글 이미지",
+                                        contentScale = ContentScale.FillWidth,
                                         modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(240.dp)
-                                            .clip(RoundedCornerShape(8.dp))
-                                            .clickable {
+                                            .fillMaxSize()
+                                            .wrapContentHeight().clickable {
                                                 imageUrl = fileUrl
                                                 showImageFullScreen = true
                                             },
-                                        contentScale = ContentScale.Crop
                                     )
+
+
                                 }
 
                                 isVideo -> {

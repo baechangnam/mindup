@@ -49,8 +49,19 @@ import apps.kr.mentalgrowth.R
 fun LoginScreen(viewModel: LoginViewModel = viewModel(), navController: NavController
 ) {
     // State
-    var userId by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+
+    val save_id = LocalContext.current
+        .getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        .getString("save_id", "")!!
+
+    val save_pass = LocalContext.current
+        .getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+        .getString("save_pass", "")!!
+
+
+    var userId by remember { mutableStateOf(save_id) }
+    var password by remember { mutableStateOf(save_pass) }
+
 
     val activity = LocalContext.current as Activity
 
@@ -85,6 +96,7 @@ fun LoginScreen(viewModel: LoginViewModel = viewModel(), navController: NavContr
                 putString("mem_id", uiState.mem_id ?: "")
                 putString("mem_level", uiState.mem_level ?: "")
                 putString("mem_nick", uiState.nickname ?: "")
+                putString("mem_pass", password ?: "")
 
                 putString("class_group_id", uiState.class_group_id ?: "")
 

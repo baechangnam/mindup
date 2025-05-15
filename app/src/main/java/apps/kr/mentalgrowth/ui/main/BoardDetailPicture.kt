@@ -480,12 +480,12 @@ fun BoardDetailPicture(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Color.Black)
+                                .background(Color(0xfffee3ea))
                                 .padding(vertical = 16.dp)
                         ) {
                             Text(
                                 text = b.title,
-                                color = Color.White,
+                                color = Color.Black,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 textAlign = TextAlign.Center,
@@ -500,17 +500,17 @@ fun BoardDetailPicture(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(240.dp) // 적당한 높이 설정
+                                .wrapContentHeight()
                                 .background(Color.Black)
                         ) {
                             if (imageUrl != null) {
                                 AsyncImage(
                                     model = imageUrl,
                                     contentDescription = "게시글 이미지",
-                                    contentScale = ContentScale.Crop,
+                                    contentScale = ContentScale.FillWidth,
                                     modifier = Modifier
                                         .fillMaxSize()
-                                        .clip(RoundedCornerShape(0.dp)) // 둥글게 하려면 조절
+                                        .wrapContentHeight(),
                                 )
                             } else {
                                 Text(

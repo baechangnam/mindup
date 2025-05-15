@@ -324,7 +324,7 @@ fun MindTalkListenScreen( navController: NavController? = null,
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            "제시된 마음에 어울리는 노래를 추천해 주세요.",
+                            "제시된 마음에 어울리는 노래를 추천해 보세요.",
                             fontSize = 13.sp,
                             color = Color(0xFF1565C0) // 짙은 파랑
                         )

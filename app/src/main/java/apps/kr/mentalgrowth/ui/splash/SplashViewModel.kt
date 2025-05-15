@@ -38,14 +38,14 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
             val currentVersion = CommonUtil.getCurrentAppVersion(getApplication())
 
             // Retrofit과 코루틴으로 버전 체크 (IO 스레드 사용)
-            val versionOk = withContext(Dispatchers.IO) {
-                NetworkClient.checkAppVersion(currentVersion)
-            }
-
-            if (!versionOk) {
-                _uiState.value = SplashUiState.VersionError
-                return@launch
-            }
+//            val versionOk = withContext(Dispatchers.IO) {
+//                NetworkClient.checkAppVersion(currentVersion)
+//            }
+//
+//            if (!versionOk) {
+//                _uiState.value = SplashUiState.VersionError
+//                return@launch
+//            }
 
             delay(1500L)
 

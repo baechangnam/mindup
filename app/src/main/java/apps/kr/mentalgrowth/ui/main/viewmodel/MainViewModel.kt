@@ -338,10 +338,10 @@ class MainViewModel() : ViewModel() {
         }
     }
 
-    fun getBoardListTouchTotal(pid: String, groupId: String, code: String, reg_id: String, tag: String) {
+    fun getBoardListTouchTotal(pid: String, groupId: String, code: String, reg_id: String, tag: String,mem_level : String) {
         viewModelScope.launch {
             try {
-                val response = apiService.getBoardListTouchTotal(pid, groupId, code,reg_id,tag)
+                val response = apiService.getBoardListTouchTotal(pid, groupId, code,reg_id,tag,mem_level)
                 if (response.isSuccessful) {
                     response.body()?.let { list ->
                         hCount.value= list.count_info.h_cnt?:"0"

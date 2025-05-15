@@ -325,7 +325,7 @@ fun MindTalkConsultScreen( navController: NavController? = null,
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            "친구랑 도란도란 상담을 나누면서 또래 상담을 도전해봐요.",
+                            "친구랑 도란도란 상담을 나누면서 또래 상담을 도전해 보세요.",
                             fontSize = 13.sp,
                             color = Color(0xFF1565C0) // 짙은 파랑
                         )

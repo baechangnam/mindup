@@ -322,7 +322,7 @@ fun MindTalkPictureScreen( navController: NavController? = null,
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
-                            "마음과 어울리는 그림을 친구들과 나누며,소통해 보세요",
+                            "마음과 어울리는 그림을 친구들과 나누며,소통해 보세요.",
                             fontSize = 13.sp,
                             color = Color(0xFF1565C0) // 짙은 파랑
                         )

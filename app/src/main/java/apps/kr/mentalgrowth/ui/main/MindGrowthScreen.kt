@@ -398,7 +398,7 @@ fun MyActivityView(boardList: List<ApiResponseModel.Board>, navController: NavCo
             .padding(12.dp)
     ) {
 
-        boardList.take(5).forEach { board ->
+        boardList.forEach { board ->
             Text(
                 text = board.title ?: "(제목 없음)",
                 fontSize = 13.sp,
@@ -439,7 +439,7 @@ fun MyChallengeView(items: List<ApiResponseModel.Board>, navController: NavContr
                             .weight(1f)
                             .aspectRatio(1f)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(Color.Black)
+                            .background(Color(0xfffee3ea))
                             .clickable {
                                 navController?.navigate("board_detail_chal/touch/${item.idx}")
 //                                if (item == null) {
@@ -488,7 +488,7 @@ fun MyChallengeView(items: List<ApiResponseModel.Board>, navController: NavContr
                                         Text(
                                             text = "이미지 없음",
                                             fontSize = 14.sp,
-                                            color = Color.LightGray
+                                            color = Color.Black
                                         )
                                     }
                                 }
@@ -503,6 +503,27 @@ fun MyChallengeView(items: List<ApiResponseModel.Board>, navController: NavContr
                 }
             }
         }
+    }
+}
+
+@Composable
+fun TierImage(_myTeir: String) {
+    // 매칭되는 리소스가 없으면 null
+    val imageRes: Int? = when (_myTeir) {
+        "브론즈 하트"    -> R.drawable.bronze
+        "실버 하트"     -> R.drawable.silver
+        "골드 하트"     -> R.drawable.gold
+        "플래티넘 하트" -> R.drawable.plt
+        "다이아 하트"   -> R.drawable.diamond1
+        else             -> null
+    }
+
+    imageRes?.let { res ->
+        Image(
+            painter = painterResource(id = res),
+            contentDescription = _myTeir,
+            modifier = Modifier.size(18.dp)  // 원하는 크기로 조절
+        )
     }
 }
 

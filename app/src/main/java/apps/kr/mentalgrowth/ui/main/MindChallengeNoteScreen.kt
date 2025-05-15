@@ -62,6 +62,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -81,8 +83,10 @@ import java.time.format.TextStyle
 //import apps.kr.mentalgrowth.ui.main.viewmodel.GolfCourseListViewModel
 
 @Composable
-fun MindChallengeNoteScreen( navController: NavController? = null,
-                     viewModel: MainViewModel = viewModel()) {
+fun MindChallengeNoteScreen(
+    navController: NavController? = null,
+    viewModel: MainViewModel = viewModel()
+) {
 
     val boardList by viewModel.getBoardList.collectAsState()
     val boardVideoList by viewModel.getBoardVideo.collectAsState()
@@ -114,7 +118,7 @@ fun MindChallengeNoteScreen( navController: NavController? = null,
     )
 
     LaunchedEffect(class_group_id) {
-        viewModel.getBoardTouch("4", class_group_id,"",mem_id,"note")
+        viewModel.getBoardTouch("4", class_group_id, "", mem_id, "note")
 
     }
 
@@ -255,14 +259,10 @@ fun MindChallengeNoteScreen( navController: NavController? = null,
                     selected = selectedLetter,
                     onSelect = { letter ->
                         selectedLetter = letter
-                    }
-                    , navController = navController,  boardList = boardList // 추가
+                    }, navController = navController, boardList = boardList // 추가
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-
-
-
 
 
             }
@@ -270,9 +270,8 @@ fun MindChallengeNoteScreen( navController: NavController? = null,
     )
 
 
-
-
 }
+
 @Composable
 fun HeartInfoTableD(
     heartData: Map<String, List<String>>,
@@ -340,8 +339,9 @@ fun HeartInfoTableD(
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(48.dp).clickable {
-                                   // onSelect(letter)
+                                .size(48.dp)
+                                .clickable {
+                                    // onSelect(letter)
                                     shortMemo = letter
                                 },
 
@@ -360,6 +360,11 @@ fun HeartInfoTableD(
                                 fontWeight = FontWeight.Bold
                             )
                         }
+                        val MyFontFamily = FontFamily(
+                            Font(R.font.mid, weight = FontWeight.Normal),
+                            Font(R.font.bold, weight = FontWeight.Bold)
+                        )
+
 
                         Spacer(modifier = Modifier.width(12.dp))
                         var textFieldFocusState by remember { mutableStateOf(false) }
@@ -370,7 +375,8 @@ fun HeartInfoTableD(
                             modifier = Modifier
                                 .weight(1f)
                                 .heightIn(min = 48.dp) // 최소 높이 설정
-                                .padding(vertical = 4.dp).pointerInput(Unit) {
+                                .padding(vertical = 4.dp)
+                                .pointerInput(Unit) {
                                     detectTapGestures(
                                         onLongPress = {
                                             if (!inputMap[letter].isNullOrBlank()) {
@@ -378,17 +384,24 @@ fun HeartInfoTableD(
                                             }
                                         }
                                     )
-                                }.onFocusChanged { focusState ->
+                                }
+                                .onFocusChanged { focusState ->
                                     textFieldFocusState = focusState.isFocused
                                     if (focusState.isFocused) {
                                         shortMemo = letter
                                         // idxMap[letter]는 그대로 두되, 포커스된 글자를 기준으로 서버로 보내는 shortMemo는 업데이트
                                     }
                                 }, // 위아래 여백 축소
-                            placeholder = { Text("내용 입력", fontSize = 12.sp) },
+                            placeholder = {
+                                Text(
+                                    "내용 입력", fontSize = 12.sp, fontFamily = MyFontFamily,
+                                    fontWeight = FontWeight.Normal
+                                )
+                            },
                             textStyle = androidx.compose.ui.text.TextStyle(
                                 fontSize = 13.sp,
-                                lineHeight = 16.sp
+                                lineHeight = 16.sp, fontFamily = MyFontFamily,
+                                fontWeight = FontWeight.Normal
                             ),
                             singleLine = false,
                             maxLines = 4
@@ -417,7 +430,11 @@ fun HeartInfoTableD(
                                             if (response.isSuccessful) {
                                                 response.body()?.let { list ->
                                                     if (list.flag.flag == "1") {
-                                                        Toast.makeText(context, "등록 완료", Toast.LENGTH_SHORT).show()
+                                                        Toast.makeText(
+                                                            context,
+                                                            "등록 완료",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
                                                     }
                                                 }
                                             }
@@ -431,7 +448,7 @@ fun HeartInfoTableD(
                                     .height(24.dp),
                                 contentPadding = PaddingValues(0.dp)
                             ) {
-                                Text("등록", fontSize = 9.sp)
+                                Text("등록", style = MaterialTheme.typography.caption)
                             }
 
                             Button(
@@ -446,7 +463,7 @@ fun HeartInfoTableD(
                                 contentPadding = PaddingValues(0.dp),
                                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
                             ) {
-                                Text("삭제", fontSize = 9.sp)
+                                Text("삭제", style = MaterialTheme.typography.caption)
                             }
                         }
                     }

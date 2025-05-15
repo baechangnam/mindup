@@ -385,6 +385,13 @@ fun MainScreen(navController: NavHostController) {
             composable("profile") {
                 val context = LocalContext.current
                 val prefs = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+                val mem_id = LocalContext.current
+                    .getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+                    .getString("mem_id", "")!!
+
+                val mem_pass = LocalContext.current
+                    .getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+                    .getString("mem_pass", "")!!
 
                 ProfileEditScreen(navController = bottomNavController,  onLogout = {
 
@@ -392,6 +399,9 @@ fun MainScreen(navController: NavHostController) {
                     // AuthViewModel.logout() 같은 로직 호출
                     prefs.edit().apply {
                         putBoolean("isLoggedIn", false)
+                        putString("save_id", mem_id)
+                        putString("save_pass", mem_pass)
+
                         putString("mem_id", "")
                         putString("mem_level", "")
                         putString("mem_nick", "")
