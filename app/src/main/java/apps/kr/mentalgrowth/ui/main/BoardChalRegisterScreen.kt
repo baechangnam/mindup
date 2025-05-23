@@ -173,7 +173,7 @@ fun BoardChalRegisterScreen(navController: NavController, code : String,  idx: S
                     contentAlignment = Alignment.Center
                 ) {
                     // ✅ 중앙 타이틀 (하트 포함)
-                    TitleWithHearts("게시판 등록")
+                    TitleWithHearts("마음챌린지 등록")
 
                     // 🔹 왼쪽: 뒤로가기 버튼
                     Row(

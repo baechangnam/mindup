@@ -175,7 +175,7 @@ fun BoardRegisterPictureScreen(navController: NavController, code : String,  idx
                     contentAlignment = Alignment.Center
                 ) {
                     // ✅ 중앙 타이틀 (하트 포함)
-                    CommonView.TitleWithHearts("게시판 등록")
+                    CommonView.TitleWithHearts("마음그림 등록")
 
                     // 🔹 왼쪽: 뒤로가기 버튼
                     Row(

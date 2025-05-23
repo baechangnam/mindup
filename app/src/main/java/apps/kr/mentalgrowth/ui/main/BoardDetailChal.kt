@@ -48,6 +48,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -85,6 +86,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import androidx.navigation.NavController
 import apps.kr.mentalgrowth.R
+import apps.kr.mentalgrowth.common.CommonView
 import apps.kr.mentalgrowth.model.ApiResponseModel
 import apps.kr.mentalgrowth.network.NetworkClient
 import apps.kr.mentalgrowth.network.NetworkClient.BASE_URL_UPLOAD
@@ -251,58 +253,76 @@ fun BoardDetailChal(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("게시판 상세", style = MaterialTheme.typography.h6) },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_back_black),
-                                contentDescription = "뒤로가기",
-                                modifier = Modifier.size(40.dp),  tint = Color.Black
-                            )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { menuExpanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = "메뉴열기",
-                                tint = Color.Black
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = menuExpanded,
-                            onDismissRequest = { menuExpanded = false }
-                        ) {
-                            // 내 글이면 수정/삭제/신고
-                            if (board?.reg_id == memId) {
-                                DropdownMenuItem(onClick = {
-                                    menuExpanded = false
-
-                                    navController?.navigate("board_reg_ch/${board?.cate}?idx=${board?.idx}")
-                                    //navController.navigate("board_edit/${board?.idx}")
-                                }) {
-                                    Text("수정")
-                                }
-                                DropdownMenuItem(onClick = {
-                                    menuExpanded = false
-                                    viewModel.deleteBoard(boardId)  // ViewModel에 삭제 메서드 구현
-                                }) {
-                                    Text("삭제")
-                                }
-                            }
-                            // 공통: 신고하기
-                            DropdownMenuItem(onClick = {
-                                menuExpanded = false
-                                showReportDialog = true
-                            }) {
-                                Text("신고하기")
-                            }
-                        }
-                    },
                     backgroundColor = Color(0xFFF8BBD0),
-                    contentColor = MaterialTheme.colors.onPrimary,
-                    elevation = 8.dp
-                )
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp), // 기본 TopAppBar 높이
+                        contentAlignment = Alignment.Center
+                    ) {
+                        // ✅ 중앙 타이틀 (하트 포함)
+                        CommonView.TitleWithHearts("마음 챌린지")
+
+                        // 🔹 왼쪽: 뒤로가기 버튼
+                        Row(
+                            modifier = Modifier.align(Alignment.CenterStart),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            IconButton(onClick = { navController?.popBackStack() }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_back_black),
+                                    contentDescription = "뒤로가기",
+                                    modifier = Modifier.size(40.dp)
+                                )
+                            }
+                        }
+
+                        // 🔹 오른쪽: 홈 버튼
+                        Row(
+                            modifier = Modifier.align(Alignment.CenterEnd),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            IconButton(onClick = { menuExpanded = true }) {
+                                Icon(
+                                    imageVector = Icons.Default.MoreVert,
+                                    contentDescription = "메뉴열기",
+                                    tint = Color.Black
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = menuExpanded,
+                                onDismissRequest = { menuExpanded = false }
+                            ) {
+                                // 내 글이면 수정/삭제/신고
+                                if (board?.reg_id == memId) {
+                                    DropdownMenuItem(onClick = {
+                                        menuExpanded = false
+
+                                        navController?.navigate("board_reg_ch/${board?.cate}?idx=${board?.idx}")
+                                        //navController.navigate("board_edit/${board?.idx}")
+                                    }) {
+                                        Text("수정")
+                                    }
+                                    DropdownMenuItem(onClick = {
+                                        menuExpanded = false
+                                        viewModel.deleteBoard(boardId)  // ViewModel에 삭제 메서드 구현
+                                    }) {
+                                        Text("삭제")
+                                    }
+                                }
+                                // 공통: 신고하기
+                                DropdownMenuItem(onClick = {
+                                    menuExpanded = false
+                                    showReportDialog = true
+                                }) {
+                                    Text("신고하기")
+                                }
+                            }
+                        }
+                    }
+                }
+
 
             },
             bottomBar = {
